@@ -5,7 +5,8 @@ using UnityEngine;
 public interface IUpgradeService
 {
     public bool UpgradeScoreMultiplier();
-    public void UpgradeAutoCollector();
+    public bool UpgradeAutoCollector();
     public void UpgradeOfflineCollector();
     public int GetRequiredMultiplierAmount();
+    public int GetRequiredAutoCollectAmount();
 }

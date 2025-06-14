@@ -5,7 +5,7 @@ using System;
 
 public class ScoreService : IScoreService, IGameService
 {
-    int m_score, m_scoreMultiplier;
+    int m_score, m_scoreMultiplier, m_autoCollectScore;
     Action<int> m_scoreIncreaseHandler;
     Action<int> m_scoreMultiplierHandler;
     public ScoreService()
@@ -13,6 +13,7 @@ public class ScoreService : IScoreService, IGameService
         RegisterService();
         m_score = 0; // read from saved value
         m_scoreMultiplier = 1; // read from saved value
+        m_autoCollectScore = 0; // read from saved values
     }
     ~ScoreService()
     {
@@ -57,5 +58,13 @@ public class ScoreService : IScoreService, IGameService
     public void RegisterService()
     {
         ServiceLocator.RegisterService(EServiceTypes.ScoreService, this);
+    }
+    public void IncreaseAutocollectScore(int a_autoColllectScore)
+    {
+        m_autoCollectScore += a_autoColllectScore;
+    }
+    public int GetAutocollectScore()
+    {
+        return m_autoCollectScore;
     }
 }

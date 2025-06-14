@@ -12,6 +12,7 @@ public class UpgradesUI : MonoBehaviour
     [SerializeField] Button m_closeButton, m_UpgradesButton;
     [SerializeField] UpgradeButton m_scoreMultiplier, m_offlineCollector, m_autoCollection;
     [SerializeField] float m_startPosition, m_endPostion, m_duration = 0.2f;
+    [SerializeField] AutoCollect m_autoCollector;
 
     IUpgradeService m_upgradeService;
     IScoreService m_scoreService;
@@ -24,6 +25,7 @@ public class UpgradesUI : MonoBehaviour
         m_upgradeService = ServiceLocator.GetService<IUpgradeService>(EServiceTypes.UpgradeService);
         m_scoreService = ServiceLocator.GetService<IScoreService>(EServiceTypes.ScoreService);
         m_scoreMultiplier.GetButton().onClick.AddListener(OnUpgradeScoreMultiplierClicked);
+        m_autoCollection.GetButton().onClick.AddListener(OnUpgradeAutoCollectClicked);
     }
     private void OnDestroy()
     {
@@ -36,14 +38,18 @@ public class UpgradesUI : MonoBehaviour
     }
     public void ShowCanvas()
     {
-        ToggleScoreMultiplierbutton(m_scoreService.GetScore());
+        int l_currentScore = m_scoreService.GetScore();
+        ToggleScoreMultiplierbutton(l_currentScore);
+        ToggleAutocollectButton(l_currentScore);
         m_scoreService.SubscribeForScoreIncreaseEvent(ToggleScoreMultiplierbutton);
+        m_scoreService.SubscribeForScoreIncreaseEvent(ToggleAutocollectButton);
         ToggleCanvas(true);
     }
     public void HideCanvas()
     {
         ToggleCanvas(false);
         m_scoreService.UnSubscribeFromScoreIncreaseEvent(ToggleScoreMultiplierbutton);
+        m_scoreService.UnSubscribeFromScoreIncreaseEvent(ToggleAutocollectButton);
     }
     public async void InTransitionAnim()
     {
@@ -72,4 +78,18 @@ public class UpgradesUI : MonoBehaviour
     {
         m_scoreMultiplier.Updatebutton(m_upgradeService.GetRequiredMultiplierAmount(), a_currentScore);
     }
+    private void OnUpgradeAutoCollectClicked()
+    {
+        if(m_upgradeService.UpgradeAutoCollector())
+        {
+            ToggleAutocollectButton(m_scoreService.GetScore());
+            m_autoCollector.ToggleAutoCollect(true);
+            m_autoCollector.UpdateAutoCollectAmount(m_scoreService.GetAutocollectScore());
+        }
+    }
+    public void ToggleAutocollectButton(int a_currentScore)
+    {
+        m_autoCollection.Updatebutton(m_upgradeService.GetRequiredAutoCollectAmount(), a_currentScore);
+    }
+
 }

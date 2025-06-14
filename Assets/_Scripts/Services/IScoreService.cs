@@ -10,4 +10,6 @@ public interface IScoreService
     public void UnSubscribeFromScoreIncreaseEvent(Action<int> a_functionToRemove);
     public void SubscribeForScoreMultiplierIncreased(Action<int> a_callback);
     public void UnSubscribeFromScoreMultiplier(Action<int> a_functionToRemove);
+    public void IncreaseAutocollectScore(int a_aotoCollectScore);
+    public int GetAutocollectScore();
 }
