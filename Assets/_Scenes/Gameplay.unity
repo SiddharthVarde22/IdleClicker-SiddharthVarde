@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_scoreMultiplier: {fileID: 6616723377285917640}
   m_offlineCollector: {fileID: 0}
   m_autoCollection: {fileID: 978142903}
-  m_startPosition: -200
+  m_startPosition: -750
   m_endPostion: 0
   m_duration: 0.5
   m_autoCollector: {fileID: 1336373816}

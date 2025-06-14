@@ -26,6 +26,10 @@ public class UpgradesUI : MonoBehaviour
         m_scoreService = ServiceLocator.GetService<IScoreService>(EServiceTypes.ScoreService);
         m_scoreMultiplier.GetButton().onClick.AddListener(OnUpgradeScoreMultiplierClicked);
         m_autoCollection.GetButton().onClick.AddListener(OnUpgradeAutoCollectClicked);
+        if(m_scoreService.GetAutocollectScore() > 0)
+        {
+            UpdateAutoCollectState();
+        }
     }
     private void OnDestroy()
     {
@@ -83,13 +87,16 @@ public class UpgradesUI : MonoBehaviour
         if(m_upgradeService.UpgradeAutoCollector())
         {
             ToggleAutocollectButton(m_scoreService.GetScore());
-            m_autoCollector.ToggleAutoCollect(true);
-            m_autoCollector.UpdateAutoCollectAmount(m_scoreService.GetAutocollectScore());
+            UpdateAutoCollectState();
         }
     }
     public void ToggleAutocollectButton(int a_currentScore)
     {
         m_autoCollection.Updatebutton(m_upgradeService.GetRequiredAutoCollectAmount(), a_currentScore);
     }
-
+    public void UpdateAutoCollectState()
+    {
+        m_autoCollector.ToggleAutoCollect(true);
+        m_autoCollector.UpdateAutoCollectAmount(m_scoreService.GetAutocollectScore());
+    }
 }
