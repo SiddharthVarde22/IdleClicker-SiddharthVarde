@@ -20,7 +20,7 @@ public class ScoreService : IScoreService, IGameService
         m_scoreMultiplierHandler = null;
     }
 
-    public void IncreaseScore(int a_score)
+    public void UpdateScore(int a_score)
     {
         m_score += a_score;
         m_scoreIncreaseHandler?.Invoke(m_score);
@@ -40,6 +40,7 @@ public class ScoreService : IScoreService, IGameService
     public void IncreaseScoreMultiplier(int a_multiplier)
     {
         m_scoreMultiplier += a_multiplier;
+        m_scoreMultiplierHandler?.Invoke(m_scoreMultiplier);
     }
     public int GetScoreMultiplier()
     {

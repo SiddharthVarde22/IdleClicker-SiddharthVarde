@@ -2,7 +2,7 @@ using System;
 
 public interface IScoreService
 {
-    public void IncreaseScore(int a_score);
+    public void UpdateScore(int a_score);
     public void IncreaseScoreMultiplier(int a_multiplier);
     public int GetScore();
     public int GetScoreMultiplier();

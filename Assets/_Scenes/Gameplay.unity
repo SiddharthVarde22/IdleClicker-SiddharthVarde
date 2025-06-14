@@ -795,6 +795,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &786910795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786910796}
+  - component: {fileID: 786910797}
+  m_Layer: 0
+  m_Name: UpgradeService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &786910796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786910795}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786910797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786910795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef535b14b58ed0c449e2d9d39400c8c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ScoreMultiplierSO: {fileID: 11400000, guid: 11b46794ff8cb1f4a95dfa5b1c007ccf, type: 2}
 --- !u!1 &819860900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,6 +1282,9 @@ MonoBehaviour:
   m_raycaster: {fileID: 1344374281}
   m_closeButton: {fileID: 1952442350}
   m_UpgradesButton: {fileID: 819860902}
+  m_scoreMultiplier: {fileID: 6616723377285917640}
+  m_offlineCollector: {fileID: 0}
+  m_autoCollection: {fileID: 0}
   m_startPosition: -200
   m_endPostion: 0
   m_duration: 0.5
@@ -1869,13 +1917,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2569595360983309087, guid: 3f310b5cd2f97f240b9d6c41a3b6b577, type: 3}
       propertyPath: m_Name
-      value: Upgrade Button
+      value: Upgrade ScoreMultiplier Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f310b5cd2f97f240b9d6c41a3b6b577, type: 3}
+--- !u!114 &6616723377285917640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7436112342410870329, guid: 3f310b5cd2f97f240b9d6c41a3b6b577, type: 3}
+  m_PrefabInstance: {fileID: 6616723377285917636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e186587121c2f944b29525ff3c61924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1885,3 +1944,4 @@ SceneRoots:
   - {fileID: 131288468}
   - {fileID: 1506294606}
   - {fileID: 3243100}
+  - {fileID: 786910796}

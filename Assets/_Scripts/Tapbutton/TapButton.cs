@@ -32,7 +32,7 @@ public class TapButton : MonoBehaviour
             DOTween.Complete(transform);
 
         transform.DOPunchScale(m_punchAnimDirection * m_punchScale, m_punchDuration);
-        m_scoreService.IncreaseScore(m_scoreService.GetScoreMultiplier());
+        m_scoreService.UpdateScore(m_scoreService.GetScoreMultiplier());
     }
 
     private void UpdateMultiplierText(int a_multiplier)
