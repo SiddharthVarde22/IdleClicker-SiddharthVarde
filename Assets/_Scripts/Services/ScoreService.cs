@@ -8,12 +8,14 @@ public class ScoreService : IScoreService, IGameService
     int m_score, m_scoreMultiplier, m_autoCollectScore;
     Action<int> m_scoreIncreaseHandler;
     Action<int> m_scoreMultiplierHandler;
+    ISaveLoadService m_saveService;
     public ScoreService()
     {
+        m_saveService = ServiceLocator.GetService<ISaveLoadService>(EServiceTypes.SaveService);
         RegisterService();
-        m_score = 0; // read from saved value
-        m_scoreMultiplier = 1; // read from saved value
-        m_autoCollectScore = 0; // read from saved values
+        m_score = m_saveService.GetScoreData();
+        m_scoreMultiplier = m_saveService.GetMultiplier();
+        m_autoCollectScore = m_saveService.GetAutoScore();
     }
     ~ScoreService()
     {
@@ -25,6 +27,7 @@ public class ScoreService : IScoreService, IGameService
     {
         m_score += a_score;
         m_scoreIncreaseHandler?.Invoke(m_score);
+        m_saveService.UpdateScoreData(m_score);
     }
     public int GetScore()
     {
@@ -42,6 +45,7 @@ public class ScoreService : IScoreService, IGameService
     {
         m_scoreMultiplier += a_multiplier;
         m_scoreMultiplierHandler?.Invoke(m_scoreMultiplier);
+        m_saveService.UpdateScoreMultiplierData(m_scoreMultiplier);
     }
     public int GetScoreMultiplier()
     {
@@ -62,6 +66,7 @@ public class ScoreService : IScoreService, IGameService
     public void IncreaseAutocollectScore(int a_autoColllectScore)
     {
         m_autoCollectScore += a_autoColllectScore;
+        m_saveService.UpdateAutoCollectScoreData(m_autoCollectScore);
     }
     public int GetAutocollectScore()
     {

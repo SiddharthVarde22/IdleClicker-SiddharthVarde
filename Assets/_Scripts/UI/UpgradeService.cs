@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-50)]
 public class UpgradeService : MonoBehaviour, IUpgradeService, IGameService
 {
     [SerializeField] UpgradeSettings m_ScoreMultiplierSO, m_autocollectScoreSO;
 
     IScoreService m_scoreService;
 
-    private void Awake()
+    private void Start()
     {
         RegisterService();
         m_scoreService = ServiceLocator.GetService<IScoreService>(EServiceTypes.ScoreService);

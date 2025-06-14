@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-50)]
+[DefaultExecutionOrder(-100)]
 public class ServiceLocator : MonoBehaviour
 {
     private static ServiceLocator m_instance;
@@ -13,12 +13,15 @@ public class ServiceLocator : MonoBehaviour
         if(m_instance == null)
         {
             m_instance = this;
-            Initialize();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+    private void Start()
+    {
+        Initialize();
     }
     private void OnDestroy()
     {

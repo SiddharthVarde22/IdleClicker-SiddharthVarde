@@ -9,9 +9,6 @@ public class AutoCollect : MonoBehaviour
     const float AUTO_COLLECT_TIME = 1;
     IScoreService m_scoreService;
 
-    private void Start()
-    {
-    }
     public void ToggleAutoCollect(bool a_isEnable)
     {
         enabled = a_isEnable;

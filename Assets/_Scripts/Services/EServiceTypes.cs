@@ -5,5 +5,6 @@ using UnityEngine;
 public enum EServiceTypes
 {
     ScoreService = 0,
-    UpgradeService = 1
+    UpgradeService = 1,
+    SaveService = 2
 }
