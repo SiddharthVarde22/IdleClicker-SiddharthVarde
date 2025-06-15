@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 [DefaultExecutionOrder(-80)]
 public class SaveLoad : MonoBehaviour, ISaveLoadService, IGameService
@@ -60,6 +61,7 @@ public class SaveLoad : MonoBehaviour, ISaveLoadService, IGameService
     {
         if(!focus)
         {
+            //SetDateTime();
             WriteDataToFile();
         }
     }
@@ -67,11 +69,13 @@ public class SaveLoad : MonoBehaviour, ISaveLoadService, IGameService
     {
         if(pause)
         {
+            //SetDateTime();
             WriteDataToFile();
         }
     }
     private void OnApplicationQuit()
     {
+        SetDateTime();
         WriteDataToFile();
     }
 
@@ -88,5 +92,28 @@ public class SaveLoad : MonoBehaviour, ISaveLoadService, IGameService
     public int GetAutoScore()
     {
         return m_saveData.AutoScore;
+    }
+
+    public DateTime GetCloseDateTime()
+    {
+        return DateTime.FromBinary(m_saveData.BinaryDateTime);
+    }
+
+    private void SetDateTime()
+    {
+        if (m_saveData.OfflineScore > 0)
+        {
+            m_saveData.BinaryDateTime = DateTime.Now.ToBinary();
+        }
+    }
+
+    public int GetOfflineScore()
+    {
+        return m_saveData.OfflineScore;
+    }
+
+    public void UpdateOfflineScore(int a_offlineScore)
+    {
+        m_saveData.OfflineScore = a_offlineScore;
     }
 }

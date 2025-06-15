@@ -6,7 +6,8 @@ public interface IUpgradeService
 {
     public bool UpgradeScoreMultiplier();
     public bool UpgradeAutoCollector();
-    public void UpgradeOfflineCollector();
+    public bool UpgradeOfflineCollector();
     public int GetRequiredMultiplierAmount();
     public int GetRequiredAutoCollectAmount();
+    public int GetRequiredOfflineCollectionAmount();
 }

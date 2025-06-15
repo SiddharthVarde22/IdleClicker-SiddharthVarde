@@ -12,4 +12,6 @@ public interface IScoreService
     public void UnSubscribeFromScoreMultiplier(Action<int> a_functionToRemove);
     public void IncreaseAutocollectScore(int a_aotoCollectScore);
     public int GetAutocollectScore();
+    public int GetOfflineScore();
+    public void IncreaseOfflineScore(int a_offlineScore);
 }

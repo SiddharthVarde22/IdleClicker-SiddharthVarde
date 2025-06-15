@@ -5,7 +5,7 @@ using System;
 
 public class ScoreService : IScoreService, IGameService
 {
-    int m_score, m_scoreMultiplier, m_autoCollectScore;
+    int m_score, m_scoreMultiplier, m_autoCollectScore, m_offlineScore;
     Action<int> m_scoreIncreaseHandler;
     Action<int> m_scoreMultiplierHandler;
     ISaveLoadService m_saveService;
@@ -16,6 +16,7 @@ public class ScoreService : IScoreService, IGameService
         m_score = m_saveService.GetScoreData();
         m_scoreMultiplier = m_saveService.GetMultiplier();
         m_autoCollectScore = m_saveService.GetAutoScore();
+        m_offlineScore = m_saveService.GetOfflineScore();
     }
     ~ScoreService()
     {
@@ -71,5 +72,16 @@ public class ScoreService : IScoreService, IGameService
     public int GetAutocollectScore()
     {
         return m_autoCollectScore;
+    }
+
+    public int GetOfflineScore()
+    {
+        return m_offlineScore;
+    }
+
+    public void IncreaseOfflineScore(int a_offlineScore)
+    {
+        m_offlineScore += a_offlineScore;
+        m_saveService.UpdateOfflineScore(m_offlineScore);
     }
 }

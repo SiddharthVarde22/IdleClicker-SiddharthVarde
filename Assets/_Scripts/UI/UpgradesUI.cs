@@ -13,6 +13,7 @@ public class UpgradesUI : MonoBehaviour
     [SerializeField] UpgradeButton m_scoreMultiplier, m_offlineCollector, m_autoCollection;
     [SerializeField] float m_startPosition, m_endPostion, m_duration = 0.2f;
     [SerializeField] AutoCollect m_autoCollector;
+    [SerializeField] OfflineCollector m_offlineCollectorClass;
 
     IUpgradeService m_upgradeService;
     IScoreService m_scoreService;
@@ -26,9 +27,14 @@ public class UpgradesUI : MonoBehaviour
         m_scoreService = ServiceLocator.GetService<IScoreService>(EServiceTypes.ScoreService);
         m_scoreMultiplier.GetButton().onClick.AddListener(OnUpgradeScoreMultiplierClicked);
         m_autoCollection.GetButton().onClick.AddListener(OnUpgradeAutoCollectClicked);
+        m_offlineCollector.GetButton().onClick.AddListener(OnUpgradeOfflineCollectorClicked);
         if(m_scoreService.GetAutocollectScore() > 0)
         {
             UpdateAutoCollectState();
+        }
+        if(m_scoreService.GetOfflineScore() > 0)
+        {
+            m_offlineCollectorClass.CollectOfflineScore();
         }
     }
     private void OnDestroy()
@@ -45,8 +51,10 @@ public class UpgradesUI : MonoBehaviour
         int l_currentScore = m_scoreService.GetScore();
         ToggleScoreMultiplierbutton(l_currentScore);
         ToggleAutocollectButton(l_currentScore);
+        ToggleOfflineCollectionButton(l_currentScore);
         m_scoreService.SubscribeForScoreIncreaseEvent(ToggleScoreMultiplierbutton);
         m_scoreService.SubscribeForScoreIncreaseEvent(ToggleAutocollectButton);
+        m_scoreService.SubscribeForScoreIncreaseEvent(ToggleOfflineCollectionButton);
         ToggleCanvas(true);
     }
     public void HideCanvas()
@@ -54,6 +62,7 @@ public class UpgradesUI : MonoBehaviour
         ToggleCanvas(false);
         m_scoreService.UnSubscribeFromScoreIncreaseEvent(ToggleScoreMultiplierbutton);
         m_scoreService.UnSubscribeFromScoreIncreaseEvent(ToggleAutocollectButton);
+        m_scoreService.UnSubscribeFromScoreIncreaseEvent(ToggleOfflineCollectionButton);
     }
     public async void InTransitionAnim()
     {
@@ -98,5 +107,16 @@ public class UpgradesUI : MonoBehaviour
     {
         m_autoCollector.ToggleAutoCollect(true);
         m_autoCollector.UpdateAutoCollectAmount(m_scoreService.GetAutocollectScore());
+    }
+    private void OnUpgradeOfflineCollectorClicked()
+    {
+        if(m_upgradeService.UpgradeOfflineCollector())
+        {
+            ToggleOfflineCollectionButton(m_scoreService.GetScore());
+        }
+    }
+    private void ToggleOfflineCollectionButton(int a_currentScore)
+    {
+        m_offlineCollector.Updatebutton(m_upgradeService.GetRequiredOfflineCollectionAmount(), a_currentScore);
     }
 }
